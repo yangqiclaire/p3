@@ -13,5 +13,45 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('index');
 });
+
+Route::get('/lorem', function()
+{    
+   $paragraph_number = Input::get('paragraph_number',1);
+   $generator = new Badcow\LoremIpsum\Generator($paragraph_number);
+   $paragraphs = $generator->getParagraphs($paragraph_number);
+   $text= implode('<p>', $paragraphs);
+   if ($paragraph_number <= 20) {
+          return View::make('lorem')
+          ->with('paragraph_number', $paragraph_number)
+          ->with('paragraphs', $paragraphs)
+          ->with('text',$text);
+      }
+   else  {
+   	       return View::make('lorem')
+          ->with('paragraph_number', 1)
+          ->with('paragraphs', $paragraphs)
+          ->with('text',$text);
+      }
+     
+ });
+
+Route::get('/user', function()
+{    
+   $users_number = Input::get('users_number',1);
+   $faker =  Faker\Factory::create();
+   if ($users_number<=100) {
+   	return View::make('user')
+          ->with('users_number', $users_number)
+          ->with('faker', $faker);
+   }
+   else {	return View::make('user')
+          ->with('users_number', 1)
+          ->with('faker', $faker); }
+   	
+}); 
+
+
+
+
