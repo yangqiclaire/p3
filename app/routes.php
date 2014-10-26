@@ -31,8 +31,7 @@ Route::get('/lorem', function()
    else  {
    	       return View::make('lorem')
           ->with('paragraph_number', 1)
-          ->with('paragraphs', $paragraphs)
-          ->with('text',$text);
+          ->with('text','please enter a valid number less than 20');
       }
      
  });
